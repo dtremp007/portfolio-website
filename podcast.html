@@ -61,15 +61,12 @@
           </a>
         </li>
       </ul>
-      <h1 style="text-align: center; margin-top: 3rem;">Episodes</h1>
-      <div class="episodes">
-      </div>
+      <h1 style="text-align: center; margin-top: 3rem">Episodes</h1>
+      <div class="episodes"></div>
       <template>
         <div>
-            <h3></h3>
-            <a
-            download
-          >
+          <h3></h3>
+          <a download>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-cloud-download"
@@ -100,15 +97,14 @@
         .then((response) => response.text())
         .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
         .then((data) => {
-          const items = data.documentElement
-            .getElementsByTagName("item")
+          const items = data.documentElement.getElementsByTagName("item");
 
           for (const item of items) {
             const enclosure = item.getElementsByTagName("enclosure")[0];
             const url = enclosure.getAttribute("url");
             const title = item.getElementsByTagName("title")[0].textContent;
-            const description = item.getElementsByTagName("description")[0]
-              .textContent;
+            const description =
+              item.getElementsByTagName("description")[0].textContent;
 
             const template = document.querySelector("template");
             const clone = template.content.cloneNode(true);
