@@ -137,32 +137,50 @@ a {
 }
 
 .podcast-list > li > a {
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #eee;
-    outline: solid 1px #eee;
-    border-radius: 0.5rem;
-    width: 180px;
-    transition: 0.3s;
-    text-decoration: none;
-  }
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #eee;
+  outline: solid 1px #eee;
+  border-radius: 0.5rem;
+  width: 180px;
+  transition: 0.3s;
+  text-decoration: none;
+}
 
-  .podcast-list > li > a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    outline-color: #fff;
-  }
+.podcast-list > li > a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  outline-color: #fff;
+}
 
-  .podcast-list > li > a:active {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #ddd;
-    outline-color: #ddd;
-    transform: scale(0.98);
-  }
+.podcast-list > li > a:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ddd;
+  outline-color: #ddd;
+  transform: scale(0.98);
+}
 
 .podcast-list > li > a > span {
   text-align: center;
   width: 100%;
+}
+
+.episodes {
+    margin: 1rem 0;
+}
+
+.episodes > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: solid 1px #aaa;
+  padding: 1.5rem 1rem;
+}
+
+.episodes > div > a {
+  color: #eee;
+  text-decoration: none;
+  transition: 0.3s;
 }
