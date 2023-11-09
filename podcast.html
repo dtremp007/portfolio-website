@@ -66,7 +66,7 @@
       <template>
         <div>
           <h3></h3>
-          <a download>
+          <div class="download-btn">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-cloud-download"
@@ -86,12 +86,22 @@
               <path d="M12 13l0 9"></path>
               <path d="M9 19l3 3l3 -3"></path>
             </svg>
-          </a>
+          </div>
         </div>
       </template>
     </div>
     <script>
       const RSS_URL = `https://anchor.fm/s/51db89f8/podcast/rss`;
+
+      const loadingSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-loader-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M12 3a9 9 0 1 0 9 9"></path>
+                            </svg>`;
+
+      const checkSVG = `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12l5 5l10 -10"></path>
+                         </svg>`;
 
       fetch(RSS_URL)
         .then((response) => response.text())
@@ -109,9 +119,26 @@
             const template = document.querySelector("template");
             const clone = template.content.cloneNode(true);
             const h2 = clone.querySelector("h3");
-            const a = clone.querySelector("a");
+            const dl = clone.querySelector(".download-btn");
             h2.textContent = title;
-            a.href = url;
+            dl.addEventListener("click", () => {
+                dl.innerHTML = loadingSVG;
+              fetch(url)
+                .then((resp) => resp.blob())
+                .then((blob) => {
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.style.display = "none";
+                  a.href = url;
+                  // the filename you want
+                  a.download = `${title}.${url.split(".").pop()}`;
+                  document.body.appendChild(a);
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                  document.body.removeChild(a);
+                  dl.innerHTML = checkSVG;
+                });
+            });
 
             document.querySelector(".episodes").appendChild(clone);
           }
